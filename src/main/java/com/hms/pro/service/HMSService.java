@@ -36,5 +36,5 @@ public interface HMSService {
 	
 	Candidate getCandidateDetails (QueryResultBySateEnum bySateEnum, int candidateId);
 	int updateVacateData (QueryResultBySateEnum bySateEnum, int candidateId, Date vacateDate);
-	List<CandidateUI> getCandidates(QueryResultBySateEnum bySateEnum, int candidateId);	
+	List<CandidateUI> getCandidates(QueryResultBySateEnum bySateEnum, int buildingId);	
 }
