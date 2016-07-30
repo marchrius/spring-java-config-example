@@ -121,6 +121,7 @@ public class CandidateController {
 	@ResponseBody
 	public List<CandidateUI> getCandidatesList (@PathVariable int buildingId) {
 		List<CandidateUI> candidates=hmsService.getCandidates(QueryResultBySateEnum.ACTIVE, buildingId);
+		LOGGER.debug("Size "+candidates.size());
 		return candidates;
 	}
 	
