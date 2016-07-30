@@ -20,6 +20,7 @@ import com.hms.pro.domain.Room;
 import com.hms.pro.domain.RoomType;
 import com.hms.pro.service.HMSService;
 import com.hms.pro.ui.CandidateUI;
+import com.hms.pro.ui.RoomTypeUI;
 import com.hms.pro.ui.RoomsUI;
 
 @Service
@@ -95,6 +96,13 @@ public class HMSServiceImpl implements HMSService{
 	public List<CandidateUI> getCandidates(QueryResultBySateEnum bySateEnum,
 			int candidateId) {
 		return candiateDao.getCandidates(bySateEnum, candidateId);
+	}
+
+	@Transactional(readOnly=true)
+	public List<RoomTypeUI> getRoomTypesOfBuilding(Integer buildingId) {
+		
+		return roomTypeDao.getRoomTypesOfBuilding(buildingId);
+		
 	}
 
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.hms.pro.constants.QueryResultBySateEnum;
 import com.hms.pro.dao.RoomTypeDao;
 import com.hms.pro.domain.RoomType;
+import com.hms.pro.ui.RoomTypeUI;
 import com.hms.pro.ui.RoomsUI;
 
 @Repository
@@ -36,6 +37,13 @@ public class RoomTypeDaoImpl extends AbstractDaoImpl<RoomType, Integer> implemen
 		query.setParameter("floorId", floorId);
 		query.setParameter("active", bySateEnum.ordinal());
 		return (List<RoomsUI>) excuteQuery(query, RoomsUI.class);
+	}
+
+	public List<RoomTypeUI> getRoomTypesOfBuilding(Integer buildingId) {
+		
+		Query query=getCurrentSession().createSQLQuery("SELECT rt.room_type_id as roomTypeId, rt.room_category as roomCategroy FROM hms.room r join room_type rt on rt.room_type_id = r.room_type where r.building=:buildingId group by r.room_type");
+		query.setParameter("buildingId", buildingId);
+		return (List<RoomTypeUI>) excuteQuery(query, RoomTypeUI.class);
 	}
 
 

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page isELIgnored="false" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -28,8 +30,11 @@
                   	  		    <div class="row">
                   	  		      		 <label class="col-md-3">Building</label>
                   	  		      		 <div class="col-md-9">
-                  	  		      		 		<select class="form-control">
-                  	  								<option>--select--</option>
+                  	  		      		 		<select class="form-control" id="building">
+                  	  								<option value="">--select--</option>
+                  	  								<c:forEach var="building" items="${buildings }">
+                  	  									<option value="${building.buildingId }">${building.buildingName }</option>
+                  	  								</c:forEach>
                   	  						</select>
                   	  		      		 </div>
                   	  				</div>
@@ -38,17 +43,14 @@
                   	  		<div class="col-md-4">
                   	  		 <label class="col-md-4">Share Type</label>
                   	  		  <div class="col-md-8">
-                  	  			  <select class="form-control col-md-9"></select>
+                  	  			  <select class="form-control col-md-9" id="sharing">
+                  	  			  	<option>--select---</option>
+                  	  			  </select>
                   	  		  </div>
                   	  		</div>
                   	  		
                   	  		<div class="col-md-4">
-                  	  		     <div class="checkbox" >
-                        <label >
-                          <input type="checkbox" >
-                               <span class="btn btn-xs  vacation">Include Vacates</span>
-                         </label>
-                      </div>
+                  	  		 
                   	  		</div>
                   	  		
                   	  </div>
@@ -58,7 +60,7 @@
                   	  			<div class="col-md-2">
 				                  	  		     <div class="checkbox" >
 				                        <label >
-				                          <input type="checkbox" >
+				                          <input type="checkbox" id="fully">
 				                               <span class="text-red">Fully Filled</span>
 				                         </label>
 				                      </div>
@@ -66,7 +68,7 @@
                   	  		<div class="col-md-2">
 				                  	  		     <div class="checkbox">
 				                        <label >
-				                          <input type="checkbox" >
+				                          <input type="checkbox" id="partially">
 				                               <span class="text-yellow">Partially Filled</span>
 				                         </label>
 				                      </div>
@@ -75,15 +77,25 @@
                   	  		<div class="col-md-2">
 				                  	  		     <div class="checkbox">
 				                        <label >
-				                          <input type="checkbox" >
+				                          <input type="checkbox" id="empty">
 				                               <span class="text-green">Full Empty</span>
 				                         </label>
 				                      </div>
                   	  		</div>
-                  	  		<div class="col-md-3">
-				                  	  		  
+                  	  		<div class="col-md-2">
+				                  	    <div class="checkbox" id="vacates">
+                        <label >
+                          <input type="checkbox" >
+                               <span style="color: #f597cb;">Include Vacates</span>
+                         </label>
+                      </div> 		  
                   	  		</div>
                   	  		
+                  	  		<div class="col-md-4" style=" padding: 4px;">
+                  	  			
+                  	  				<button class="btn btn-sm btn-warning" id="search">Search </button>
+                  	  			
+                  	  		</div>
                   	  		
                   	  		
                   	  </div>
@@ -112,5 +124,6 @@
 			  $("#room-tab").addClass("tabActive");
 			  });
       </script>
+      <script type="text/javascript" src="<%=request.getContextPath()%>/resources/appjs/roomSearch.js"></script>
 </body>
 </html>

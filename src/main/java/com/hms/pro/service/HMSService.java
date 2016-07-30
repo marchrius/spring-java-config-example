@@ -12,6 +12,7 @@ import com.hms.pro.domain.Floor;
 import com.hms.pro.domain.Room;
 import com.hms.pro.domain.RoomType;
 import com.hms.pro.ui.CandidateUI;
+import com.hms.pro.ui.RoomTypeUI;
 import com.hms.pro.ui.RoomsUI;
 
 public interface HMSService {
@@ -36,5 +37,7 @@ public interface HMSService {
 	
 	Candidate getCandidateDetails (QueryResultBySateEnum bySateEnum, int candidateId);
 	int updateVacateData (QueryResultBySateEnum bySateEnum, int candidateId, Date vacateDate);
-	List<CandidateUI> getCandidates(QueryResultBySateEnum bySateEnum, int buildingId);	
+	List<CandidateUI> getCandidates(QueryResultBySateEnum bySateEnum, int buildingId);
+
+	List<RoomTypeUI> getRoomTypesOfBuilding(Integer buildingId);	
 }
