@@ -43,17 +43,48 @@
                   	  		</div>
                   	  		
                   	  		<div class="col-md-4">
-                  	  		     <div class="checkbox" style="top:5px;">
+                  	  		     <div class="checkbox" >
                         <label >
                           <input type="checkbox" >
-                               <span class="btn btn-xs btn-warning vacation">Include Vacates</span>
+                               <span class="btn btn-xs  vacation">Include Vacates</span>
                          </label>
                       </div>
                   	  		</div>
                   	  		
                   	  </div>
-                  	  
+                  	  <div class="row" style="height: 2px; background: #f5f5f5;"></div>
                   	  <div class="row">
+                  	  		
+                  	  			<div class="col-md-2">
+				                  	  		     <div class="checkbox" >
+				                        <label >
+				                          <input type="checkbox" >
+				                               <span class="text-red">Fully Filled</span>
+				                         </label>
+				                      </div>
+                  	  		</div>
+                  	  		<div class="col-md-2">
+				                  	  		     <div class="checkbox">
+				                        <label >
+				                          <input type="checkbox" >
+				                               <span class="text-yellow">Partially Filled</span>
+				                         </label>
+				                      </div>
+                  	  		</div>
+                  	  		
+                  	  		<div class="col-md-2">
+				                  	  		     <div class="checkbox">
+				                        <label >
+				                          <input type="checkbox" >
+				                               <span class="text-green">Full Empty</span>
+				                         </label>
+				                      </div>
+                  	  		</div>
+                  	  		<div class="col-md-3">
+				                  	  		  
+                  	  		</div>
+                  	  		
+                  	  		
                   	  		
                   	  </div>
                   	  		

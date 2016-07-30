@@ -117,7 +117,7 @@
 							</div>
 						
 							</div>
-							
+							 <div class="row" style="height: 2px; background: #f5f5f5;margin-top:5px; "></div>
 							<div class="row">
 								<div class="col-md-12" id="candidateTable" style=" display: none;">
 								<div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap" style="padding-top:10px;">

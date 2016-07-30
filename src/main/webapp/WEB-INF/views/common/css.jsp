@@ -19,5 +19,6 @@
     }
     .vacation{
       background-color:#f597cb;
+      color: #fff;
     }
     </style>
