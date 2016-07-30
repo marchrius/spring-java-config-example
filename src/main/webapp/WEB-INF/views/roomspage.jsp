@@ -19,36 +19,49 @@
 			<div class=row style="margin-left: 10%;margin-right: auto;width: 120%;">
 				<div class="col-md-8">
 					<div class="box box-success">
-                <div class="box-header">
-                  <h3 class="box-title">Quick Example</h3>
-                </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role="form">
-                  <div class="box-body">
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Email address</label>
-                      <input type="email" placeholder="Enter email" id="exampleInputEmail1" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">Password</label>
-                      <input type="password" placeholder="Password" id="exampleInputPassword1" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputFile">File input</label>
-                      <input type="file" id="exampleInputFile">
-                      <p class="help-block">Example block-level help text here.</p>
-                    </div>
-                    <div class="checkbox">
-                      <label>
-                        <input type="checkbox"> Check me out
-                      </label>
-                    </div>
+                  <div class="box-body" >
+                  	
+                  	  <div class="col-md-12" style="box-shadow:3px 0px 15px 2px rgba(0, 0, 0, 0.125) ! important; padding-top:5px;">
+                  	  	<div class="row">	
+                  	  		<div class="col-md-4">
+                  	  		    <div class="row">
+                  	  		      		 <label class="col-md-3">Building</label>
+                  	  		      		 <div class="col-md-9">
+                  	  		      		 		<select class="form-control">
+                  	  								<option>--select--</option>
+                  	  						</select>
+                  	  		      		 </div>
+                  	  				</div>
+                  	  		</div>
+                  	  		
+                  	  		<div class="col-md-4">
+                  	  		 <label class="col-md-4">Share Type</label>
+                  	  		  <div class="col-md-8">
+                  	  			  <select class="form-control col-md-9"></select>
+                  	  		  </div>
+                  	  		</div>
+                  	  		
+                  	  		<div class="col-md-4">
+                  	  		     <div class="checkbox" style="top:5px;">
+                        <label >
+                          <input type="checkbox" >
+                               <span class="btn btn-xs btn-warning vacation">Include Vacates</span>
+                         </label>
+                      </div>
+                  	  		</div>
+                  	  		
+                  	  </div>
+                  	  
+                  	  <div class="row">
+                  	  		
+                  	  </div>
+                  	  		
+                  	  </div>
+                  
                   </div><!-- /.box-body -->
 
-                  <div class="box-footer">
-                    <button class="btn btn-primary" type="submit">Submit</button>
-                  </div>
-                </form>
+              
               </div>
 				</div>
 				

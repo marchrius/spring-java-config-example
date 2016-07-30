@@ -7,7 +7,7 @@
         <div class="navbar-custom-menu pull-left">
         <ul class="nav navbar-nav">
         <li class="messages-menu" id="room-tab">
-        <a  href="#" >
+        <a  href="<%=request.getContextPath() %>/auth/rooms" >
                  
                   <span class="user user-menu "><B>Rooms</B></span>
                    

@@ -117,11 +117,9 @@
 							</div>
 						
 							</div>
-						
-						</div>
-						
-					
-							<div class="col-md-12" id="candidateTable" style="box-shadow:3px 0px 15px 2px rgba(0, 0, 0, 0.125) ! important; display: none;">
+							
+							<div class="row">
+								<div class="col-md-12" id="candidateTable" style=" display: none;">
 								<div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap" style="padding-top:10px;">
 									
 									<div class="row">
@@ -173,6 +171,12 @@
 									</div>
 								</div>
 							</div>
+							</div>
+						
+						</div>
+						
+					
+							
 					</div>	
 					
 				</div>
