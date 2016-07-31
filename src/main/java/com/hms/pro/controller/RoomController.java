@@ -44,7 +44,11 @@ public class RoomController {
 	@RequestMapping(value="/auth/findRooms", method=RequestMethod.POST, consumes="application/json")
 	@ResponseBody
 	public List<SearchRespObj> findSearch(@RequestBody SearchReqObj searchReqObj){
-		
+		if (searchReqObj.getShareTypeId()!=0){
+			// search by sharetype 
+			//if(searchReqObj.)
+			
+		}
 		return null;
 	}
 	

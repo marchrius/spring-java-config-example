@@ -61,6 +61,13 @@ public class SearchReqObj {
 	public void setVacates(Boolean vacates) {
 		this.vacates = vacates;
 	}
+
+	@Override
+	public String toString() {
+		return "SearchReqObj [buildingId=" + buildingId + ", shareTypeId="
+				+ shareTypeId + ", fully=" + fully + ", partially=" + partially
+				+ ", empty=" + empty + ", vacates=" + vacates + "]";
+	}
 	
 	
 	
