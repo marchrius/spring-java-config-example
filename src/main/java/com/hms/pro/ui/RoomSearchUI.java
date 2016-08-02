@@ -1,7 +1,11 @@
 package com.hms.pro.ui;
 
+import java.math.BigInteger;
+
 public class RoomSearchUI {
 
+	private Integer roomId;
+	
 	private String roomCategory;
 	
 	private String floorName;
@@ -10,9 +14,20 @@ public class RoomSearchUI {
 	
 	private Integer capacity;
 	
-	private Integer occupaid;
+	private BigInteger occupaid;
 	
 	private Integer isVacate;
+	
+	private String cost;
+
+	
+	public Integer getRoomId() {
+		return roomId;
+	}
+
+	public void setRoomId(Integer roomId) {
+		this.roomId = roomId;
+	}
 
 	public String getRoomCategory() {
 		return roomCategory;
@@ -46,11 +61,11 @@ public class RoomSearchUI {
 		this.capacity = capacity;
 	}
 
-	public Integer getOccupaid() {
+	public BigInteger getOccupaid() {
 		return occupaid;
 	}
 
-	public void setOccupaid(Integer occupaid) {
+	public void setOccupaid(BigInteger occupaid) {
 		this.occupaid = occupaid;
 	}
 
@@ -60,6 +75,16 @@ public class RoomSearchUI {
 
 	public void setIsVacate(Integer isVacate) {
 		this.isVacate = isVacate;
+	}
+
+	
+	
+	public String getCost() {
+		return cost;
+	}
+
+	public void setCost(String cost) {
+		this.cost = cost;
 	}
 
 	@Override

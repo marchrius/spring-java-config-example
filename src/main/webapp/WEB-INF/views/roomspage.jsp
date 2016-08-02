@@ -54,14 +54,14 @@
                   	  		</div>
                   	  		
                   	  </div>
-                  	  <div class="row" style="height: 2px; background: #f5f5f5;"></div>
+                  	  <div class="row" style="height: 2px; background: #f5f5f5; margin-top:5px; "></div>
                   	  <div class="row">
                   	  		
                   	  			<div class="col-md-2">
 				                  	  		     <div class="checkbox" >
 				                        <label >
 				                          <input type="checkbox" id="fully">
-				                               <span class="text-red">Fully Filled</span>
+				                               <span style="color:#ff0303; ">Fully Filled</span>
 				                         </label>
 				                      </div>
                   	  		</div>
@@ -78,7 +78,7 @@
 				                  	  		     <div class="checkbox">
 				                        <label >
 				                          <input type="checkbox" id="empty">
-				                               <span class="text-green">Full Empty</span>
+				                               <span style="color:#4fce0d;">Full Empty</span>
 				                         </label>
 				                      </div>
                   	  		</div>
@@ -102,6 +102,32 @@
                   	  		
                   	  </div>
                   
+                  
+                   <div class="col-md-12" >
+                   			<div class="row" >
+                   				<div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap" style="padding-top:18px;">
+                   					<div class="row">
+                   						<div class="col-sm-12 ">
+											<table class="table table-bordered table-striped dataTable" id="example1">
+											  <thead>
+											    <tr>
+											      <th>#NO</th>
+											      <th>Room Type</th>
+											      <th>Floor</th>
+											      <th>Room Name/No</th>
+											      <th>Strength</th>
+											      <th>Filled</th>
+											      <th>Cost</th>
+											    </tr>
+											  </thead>
+											  <tbody>
+											  </tbody>
+											 </table> 
+                   					</div>
+                   				
+                   				</div>
+                   			</div>
+                   </div>
                   </div><!-- /.box-body -->
 
               
@@ -124,6 +150,9 @@
 			  $("#room-tab").addClass("tabActive");
 			  });
       </script>
+       <script type="text/javascript" src="<%=request.getContextPath() %>/resources/bootstrap/js/jquery.dataTables.min.js"></script>
+      <script type="text/javascript" src="<%=request.getContextPath() %>/resources/bootstrap/js/dataTables.bootstrap.min.js"></script>
       <script type="text/javascript" src="<%=request.getContextPath()%>/resources/appjs/roomSearch.js"></script>
+      
 </body>
 </html>

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hms.pro.constants.QueryResultBySateEnum;
 import com.hms.pro.domain.Building;
 import com.hms.pro.service.HMSService;
+import com.hms.pro.ui.RoomSearchUI;
 import com.hms.pro.ui.RoomTypeUI;
 import com.hms.pro.ui.SearchReqObj;
 import com.hms.pro.ui.SearchRespObj;
@@ -43,13 +44,9 @@ public class RoomController {
 	
 	@RequestMapping(value="/auth/findRooms", method=RequestMethod.POST, consumes="application/json")
 	@ResponseBody
-	public List<SearchRespObj> findSearch(@RequestBody SearchReqObj searchReqObj){
-		if (searchReqObj.getShareTypeId()!=0){
-			// search by sharetype 
-			//if(searchReqObj.)
-			
-		}
-		return null;
+	public List<RoomSearchUI> findSearch(@RequestBody SearchReqObj searchReqObj){
+		
+		return hmsService.getRoomSearchResults(QueryResultBySateEnum.ACTIVE, searchReqObj);
 	}
 	
 }

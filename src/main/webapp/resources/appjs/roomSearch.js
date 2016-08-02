@@ -1,9 +1,13 @@
 $(function(){
+	
 	$("#search").on("click",searchRooms);
 	$("#building").on("change",getSharingTypes);
+	
 });
 
 var searchRooms=function(){
+	 var table=$('#example1').DataTable();
+	 
 	var buildingId=$("#building :selected").val();
 	console.log(buildingId);
 	
@@ -52,9 +56,9 @@ var searchRooms=function(){
 		contentType:"application/json",
 		data:JSON.stringify(searchReqObj),
 		url:context+"/auth/findRooms",
-		sucess:function(resp){
-			
-			diplayTable(resp);
+		success:function(resp){
+			//console.log(resp);
+			diplayTable(resp,searchReqObj,table);
 		},
 		error:function(ex){
 			console.log(ex);
@@ -62,7 +66,67 @@ var searchRooms=function(){
 	});
 };
 
-var displayTable=function(response){
+var diplayTable=function(response,searchReqObj,table){
+	console.log(response);
+	console.log(searchReqObj);
+	table.clear();
+	$.each(response,function(index,roomObject){
+		console.log(roomObject);
+	// setting color codes based on search criteria 
+	
+	if(searchReqObj.fully){
+	   		if(roomObject.capacity==roomObject.occupaid){
+	   			//#ff5d5d
+	   			var rowNode=table.row.add([
+	   			       			 (index+1),
+	   			       			roomObject.roomCategory,
+	   			       			roomObject.floorName,
+	   			       			roomObject.roomName,
+	   			       			roomObject.capacity,
+	   			       			roomObject.occupaid,
+	   			       			roomObject.cost
+	   			       		]).draw().node();
+	   			$(rowNode).css('background-color', '#ff5d5d');
+	   		}
+	}
+	
+	if(searchReqObj.partially && roomObject.occupaid!=0){
+		if(roomObject.capacity>roomObject.occupaid){
+			var rowNode=table.row.add([
+ 			       			 (index+1),
+ 			       			roomObject.roomCategory,
+ 			       			roomObject.floorName,
+ 			       			roomObject.roomName,
+ 			       			roomObject.capacity,
+ 			       			roomObject.occupaid,
+ 			       			roomObject.cost
+ 			       		]).draw().node();
+			$(rowNode).css('background-color', '#fdff5d');
+		}
+	}
+	
+	if(searchReqObj.empty){
+		if(roomObject.occupaid==0){
+			var rowNode=table.row.add([
+			       			 (index+1),
+			       			roomObject.roomCategory,
+			       			roomObject.floorName,
+			       			roomObject.roomName,
+			       			roomObject.capacity,
+			       			roomObject.occupaid,
+			       			roomObject.cost
+			       		]).draw().node();
+			$(rowNode).css('background-color', '#94ff5d');
+		}
+	}
+	
+	if(searchReqObj.vacates){
+		
+	}
+	
+	});
+	
+	
 	
 };
 

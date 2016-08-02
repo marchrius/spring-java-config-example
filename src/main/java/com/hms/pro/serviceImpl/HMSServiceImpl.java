@@ -20,8 +20,10 @@ import com.hms.pro.domain.Room;
 import com.hms.pro.domain.RoomType;
 import com.hms.pro.service.HMSService;
 import com.hms.pro.ui.CandidateUI;
+import com.hms.pro.ui.RoomSearchUI;
 import com.hms.pro.ui.RoomTypeUI;
 import com.hms.pro.ui.RoomsUI;
+import com.hms.pro.ui.SearchReqObj;
 
 @Service
 public class HMSServiceImpl implements HMSService{
@@ -103,6 +105,17 @@ public class HMSServiceImpl implements HMSService{
 		
 		return roomTypeDao.getRoomTypesOfBuilding(buildingId);
 		
+	}
+
+	public List<RoomSearchUI> getRoomSearchResults(
+			QueryResultBySateEnum bySateEnum, SearchReqObj searchReqObj) {
+		// if user enters starts searching with shareType also.
+		if(searchReqObj.getShareTypeId()!=null){
+			return roomDao.getRoomSearchResults(bySateEnum, searchReqObj.getShareTypeId());
+		}
+		
+		// user searches without shareType.
+		return null;
 	}
 
 }

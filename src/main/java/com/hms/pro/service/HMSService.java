@@ -12,8 +12,10 @@ import com.hms.pro.domain.Floor;
 import com.hms.pro.domain.Room;
 import com.hms.pro.domain.RoomType;
 import com.hms.pro.ui.CandidateUI;
+import com.hms.pro.ui.RoomSearchUI;
 import com.hms.pro.ui.RoomTypeUI;
 import com.hms.pro.ui.RoomsUI;
+import com.hms.pro.ui.SearchReqObj;
 
 public interface HMSService {
 
@@ -40,4 +42,6 @@ public interface HMSService {
 	List<CandidateUI> getCandidates(QueryResultBySateEnum bySateEnum, int buildingId);
 
 	List<RoomTypeUI> getRoomTypesOfBuilding(Integer buildingId);	
+	
+	List<RoomSearchUI> getRoomSearchResults(QueryResultBySateEnum bySateEnum, SearchReqObj searchReqObj);
 }
