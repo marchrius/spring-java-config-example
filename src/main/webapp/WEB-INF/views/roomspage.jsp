@@ -83,9 +83,9 @@
 				                      </div>
                   	  		</div>
                   	  		<div class="col-md-2">
-				                  	    <div class="checkbox" id="vacates">
+				                  	    <div class="checkbox" >
                         <label >
-                          <input type="checkbox" >
+                          <input type="checkbox" id="vacates">
                                <span style="color: #f597cb;">Include Vacates</span>
                          </label>
                       </div> 		  

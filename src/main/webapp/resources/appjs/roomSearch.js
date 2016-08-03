@@ -67,11 +67,11 @@ var searchRooms=function(){
 };
 
 var diplayTable=function(response,searchReqObj,table){
-	console.log(response);
+	//console.log(response);
 	console.log(searchReqObj);
 	table.clear().draw();
 	$.each(response,function(index,roomObject){
-		console.log(roomObject);
+		//console.log(roomObject);
 	// setting color codes based on search criteria 
 	
 	if(searchReqObj.fully){
@@ -83,25 +83,38 @@ var diplayTable=function(response,searchReqObj,table){
 	   			       			roomObject.floorName,
 	   			       			roomObject.roomName,
 	   			       			roomObject.capacity,
-	   			       			roomObject.occupaid,
+	   			       		    roomObject.occupaid,
 	   			       			roomObject.cost
 	   			       		]).draw().node();
 	   			$(rowNode).css('background-color', '#ff5d5d');
+	   		
+	   			if(roomObject.isVacate==1 && searchReqObj.vacates==true)
+	   			$(table
+	   	        .cell( $(rowNode), 5 )
+	   	        .nodes())// note that you could actually pass in 'this' as the row selector!
+	   	        .css('background-color', 'rgb(255, 224, 241)');
+	   	        
 	   		}
 	}
 	
 	if(searchReqObj.partially && roomObject.occupaid!=0){
 		if(roomObject.capacity>roomObject.occupaid){
+			
 			var rowNode=table.row.add([
  			       			 (index+1),
  			       			roomObject.roomCategory,
  			       			roomObject.floorName,
  			       			roomObject.roomName,
  			       			roomObject.capacity,
- 			       			roomObject.occupaid,
+ 			       		    roomObject.occupaid,
  			       			roomObject.cost
  			       		]).draw().node();
-			$(rowNode).css('background-color', '#fdff5d');
+			$(rowNode).css('background-color', 'rgba(253,255,110,0.56)');
+			if(roomObject.isVacate==1 && searchReqObj.vacates==true)
+	   			$(table
+	   	        .cell( $(rowNode), 5 )
+	   	        .nodes())// note that you could actually pass in 'this' as the row selector!
+	   	        .css('background-color', 'rgb(255, 224, 241)');
 		}
 	}
 	
@@ -116,13 +129,31 @@ var diplayTable=function(response,searchReqObj,table){
 			       			roomObject.occupaid,
 			       			roomObject.cost
 			       		]).draw().node();
-			$(rowNode).css('background-color', '#94ff5d');
+			$(rowNode).css('background-color', 'rgba(185, 255, 93, 0.54)');
 		}
 	}
 	
-	if(searchReqObj.vacates){
+	
+	if(searchReqObj.fully==false && searchReqObj.partially==false && searchReqObj.empty==false){
 		
+		var rowNode=table.row.add([
+					       			 (index+1),
+					       			roomObject.roomCategory,
+					       			roomObject.floorName,
+					       			roomObject.roomName,
+					       			roomObject.capacity,
+					       			roomObject.occupaid,
+					       			roomObject.cost
+					       		]).draw();
+		if(roomObject.isVacate==1 && searchReqObj.vacates==true && roomObject.occupaid>0)
+   			$(table
+   	        .cell( $(rowNode), 5 )
+   	        .nodes())// note that you could actually pass in 'this' as the row selector!
+   	        .css('background-color', 'rgb(255, 224, 241)');
 	}
+	
+	
+
 	
 	});
 	
