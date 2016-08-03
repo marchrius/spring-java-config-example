@@ -69,7 +69,7 @@ var searchRooms=function(){
 var diplayTable=function(response,searchReqObj,table){
 	console.log(response);
 	console.log(searchReqObj);
-	table.clear();
+	table.clear().draw();
 	$.each(response,function(index,roomObject){
 		console.log(roomObject);
 	// setting color codes based on search criteria 
