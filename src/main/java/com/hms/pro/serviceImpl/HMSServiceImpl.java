@@ -3,11 +3,14 @@ package com.hms.pro.serviceImpl;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hms.pro.constants.QueryResultBySateEnum;
+import com.hms.pro.controller.RoomController;
 import com.hms.pro.dao.BuildingDao;
 import com.hms.pro.dao.CandidateDao;
 import com.hms.pro.dao.FloorDao;
@@ -27,7 +30,8 @@ import com.hms.pro.ui.SearchReqObj;
 
 @Service
 public class HMSServiceImpl implements HMSService{
-
+	static final Logger LOGGER = LoggerFactory.getLogger(HMSServiceImpl.class);
+	
 	@Autowired
 	private RoomTypeDao roomTypeDao;
 	
@@ -110,12 +114,13 @@ public class HMSServiceImpl implements HMSService{
 	public List<RoomSearchUI> getRoomSearchResults(
 			QueryResultBySateEnum bySateEnum, SearchReqObj searchReqObj) {
 		// if user enters starts searching with shareType also.
+		LOGGER.debug("search Object :"+searchReqObj);
 		if(searchReqObj.getShareTypeId()!=null){
 			return roomDao.getRoomSearchResults(bySateEnum, searchReqObj.getShareTypeId());
+		}else{
+			return roomDao.getRoomSearchResults(bySateEnum, 0);
 		}
 		
-		// user searches without shareType.
-		return null;
 	}
 
 }

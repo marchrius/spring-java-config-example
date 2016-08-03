@@ -2,6 +2,9 @@ $(function(){
 	
 	$("#search").on("click",searchRooms);
 	$("#building").on("change",getSharingTypes);
+	$("#example1").on("click","tbody tr", function(){
+		alert("clicked");
+	});
 	
 });
 
@@ -87,7 +90,7 @@ var diplayTable=function(response,searchReqObj,table){
 	   			       			roomObject.cost
 	   			       		]).draw().node();
 	   			$(rowNode).css('background-color', '#ff5d5d');
-	   		
+	   			$(rowNode).attr('id',roomObject.roomId);
 	   			if(roomObject.isVacate==1 && searchReqObj.vacates==true)
 	   			$(table
 	   	        .cell( $(rowNode), 5 )
@@ -109,6 +112,7 @@ var diplayTable=function(response,searchReqObj,table){
  			       		    roomObject.occupaid,
  			       			roomObject.cost
  			       		]).draw().node();
+			$(rowNode).attr('id',roomObject.roomId);
 			$(rowNode).css('background-color', 'rgba(253,255,110,0.56)');
 			if(roomObject.isVacate==1 && searchReqObj.vacates==true)
 	   			$(table
@@ -129,6 +133,7 @@ var diplayTable=function(response,searchReqObj,table){
 			       			roomObject.occupaid,
 			       			roomObject.cost
 			       		]).draw().node();
+			$(rowNode).attr('id',roomObject.roomId);
 			$(rowNode).css('background-color', 'rgba(185, 255, 93, 0.54)');
 		}
 	}
@@ -144,7 +149,8 @@ var diplayTable=function(response,searchReqObj,table){
 					       			roomObject.capacity,
 					       			roomObject.occupaid,
 					       			roomObject.cost
-					       		]).draw();
+					       		]).draw().node();
+		$(rowNode).attr('id',roomObject.roomId);
 		if(roomObject.isVacate==1 && searchReqObj.vacates==true && roomObject.occupaid>0)
    			$(table
    	        .cell( $(rowNode), 5 )

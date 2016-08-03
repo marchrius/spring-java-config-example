@@ -108,7 +108,7 @@
                    				<div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap" style="padding-top:18px;">
                    					<div class="row">
                    						<div class="col-sm-12 ">
-											<table class="table table-bordered table-striped dataTable" id="example1">
+											<table class="table table-bordered table-striped dataTable" id="example1" style="cursor: pointer;">
 											  <thead>
 											    <tr>
 											      <th>#NO</th>
