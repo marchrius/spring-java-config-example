@@ -3,7 +3,15 @@ $(function(){
 	$("#search").on("click",searchRooms);
 	$("#building").on("change",getSharingTypes);
 	$("#example1").on("click","tbody tr", function(){
-		alert("clicked");
+		//alert("clicked"+$(this).attr("id"));
+		$.ajax({
+			type:"GET",
+			url: context+"/auth/getCandidatesOfRoom/"+$(this).attr("id"),
+			success:function(resp){
+				$("#candidates").modal('show');
+				$("#candidates-modal-body").html(resp);
+			}
+		});
 	});
 	
 });
@@ -91,7 +99,7 @@ var diplayTable=function(response,searchReqObj,table){
 	   			       		]).draw().node();
 	   			$(rowNode).css('background-color', '#ff5d5d');
 	   			$(rowNode).attr('id',roomObject.roomId);
-	   			if(roomObject.isVacate==1 && searchReqObj.vacates==true)
+	   			if(roomObject.isVacate==0 && searchReqObj.vacates==true)
 	   			$(table
 	   	        .cell( $(rowNode), 5 )
 	   	        .nodes())// note that you could actually pass in 'this' as the row selector!
@@ -114,7 +122,7 @@ var diplayTable=function(response,searchReqObj,table){
  			       		]).draw().node();
 			$(rowNode).attr('id',roomObject.roomId);
 			$(rowNode).css('background-color', 'rgba(253,255,110,0.56)');
-			if(roomObject.isVacate==1 && searchReqObj.vacates==true)
+			if(roomObject.isVacate==0 && searchReqObj.vacates==true)
 	   			$(table
 	   	        .cell( $(rowNode), 5 )
 	   	        .nodes())// note that you could actually pass in 'this' as the row selector!
@@ -151,7 +159,7 @@ var diplayTable=function(response,searchReqObj,table){
 					       			roomObject.cost
 					       		]).draw().node();
 		$(rowNode).attr('id',roomObject.roomId);
-		if(roomObject.isVacate==1 && searchReqObj.vacates==true && roomObject.occupaid>0)
+		if(roomObject.isVacate==0 && searchReqObj.vacates==true && roomObject.occupaid>0)
    			$(table
    	        .cell( $(rowNode), 5 )
    	        .nodes())// note that you could actually pass in 'this' as the row selector!

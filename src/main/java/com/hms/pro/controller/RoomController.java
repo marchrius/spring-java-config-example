@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hms.pro.constants.QueryResultBySateEnum;
 import com.hms.pro.domain.Building;
+import com.hms.pro.domain.Candidate;
 import com.hms.pro.service.HMSService;
 import com.hms.pro.ui.RoomSearchUI;
 import com.hms.pro.ui.RoomTypeUI;
@@ -47,6 +48,13 @@ public class RoomController {
 	public List<RoomSearchUI> findSearch(@RequestBody SearchReqObj searchReqObj){
 		
 		return hmsService.getRoomSearchResults(QueryResultBySateEnum.ACTIVE, searchReqObj);
+	}
+	
+	@RequestMapping(value="/auth/getCandidatesOfRoom/{roomNo}")
+	public String getCandidatesOfRoom(@PathVariable Integer roomNo, Model model){
+		List<Candidate> candidates=hmsService.getCandidatesOfRoom(QueryResultBySateEnum.ACTIVE, roomNo);
+		model.addAttribute("candidates", candidates);
+		return "candidatsOfRoom";
 	}
 	
 }

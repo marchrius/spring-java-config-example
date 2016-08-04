@@ -44,4 +44,7 @@ public interface HMSService {
 	List<RoomTypeUI> getRoomTypesOfBuilding(Integer buildingId);	
 	
 	List<RoomSearchUI> getRoomSearchResults(QueryResultBySateEnum bySateEnum, SearchReqObj searchReqObj);
+
+	List<Candidate> getCandidatesOfRoom(QueryResultBySateEnum active,
+			Integer roomNo);
 }

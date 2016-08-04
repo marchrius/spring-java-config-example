@@ -28,7 +28,7 @@ public class RoomDaoImpl extends AbstractDaoImpl<Room, Integer> implements RoomD
 															" rt.capacity as capacity, COUNT(c.room) as occupaid,"+
 															"c.vacation_flag as isVacate FROM room r JOIN floor f ON f.floor_id = r.floor and r.isActive=:isActive"+
 															" JOIN room_type rt ON rt.room_type_id = r.room_type LEFT OUTER JOIN candidate c ON " +
-															"r.room_id = c.room where r.room_type=:roomType GROUP BY r.room_id ");
+															"r.room_id = c.room and c.isActive=1 where r.room_type=:roomType GROUP BY r.room_id ");
 			 query.setParameter("roomType", roomType);
 		}else{
 			query=getCurrentSession().createSQLQuery("SELECT r.room_id as roomId,rt.room_category as roomCategory, f.floor_name as floorName, " +
@@ -36,7 +36,7 @@ public class RoomDaoImpl extends AbstractDaoImpl<Room, Integer> implements RoomD
 															" rt.capacity as capacity, COUNT(c.room) as occupaid,"+
 															"c.vacation_flag as isVacate FROM room r JOIN floor f ON f.floor_id = r.floor and r.isActive=:isActive"+
 															" JOIN room_type rt ON rt.room_type_id = r.room_type LEFT OUTER JOIN candidate c ON " +
-															"r.room_id = c.room GROUP BY r.room_id ");
+															"r.room_id = c.room and c.isActive=1 GROUP BY r.room_id ");
 			
 		}
 		query.setParameter("isActive", bySateEnum.ordinal());

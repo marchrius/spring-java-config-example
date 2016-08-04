@@ -110,7 +110,8 @@ public class HMSServiceImpl implements HMSService{
 		return roomTypeDao.getRoomTypesOfBuilding(buildingId);
 		
 	}
-
+	
+	@Transactional(readOnly=true)
 	public List<RoomSearchUI> getRoomSearchResults(
 			QueryResultBySateEnum bySateEnum, SearchReqObj searchReqObj) {
 		// if user enters starts searching with shareType also.
@@ -121,6 +122,12 @@ public class HMSServiceImpl implements HMSService{
 			return roomDao.getRoomSearchResults(bySateEnum, 0);
 		}
 		
+	}
+
+	@Transactional(readOnly=true)
+	public List<Candidate> getCandidatesOfRoom(QueryResultBySateEnum active,
+			Integer roomNo) {
+		return candiateDao.getCandidatesOfRoom(active, roomNo);
 	}
 
 }

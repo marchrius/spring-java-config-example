@@ -54,4 +54,12 @@ public class CandidateDaoImpl extends AbstractDaoImpl<Candidate, Integer> implem
 		return (Candidate) query.list().get(0);
 	}
 
+	public List<Candidate> getCandidatesOfRoom(QueryResultBySateEnum state,
+			Integer roomNo) {
+		Query query=getCurrentSession().createQuery("from Candidate c where c.room.roomId=:roomNo and c.isActive=:active");
+		query.setParameter("roomNo", roomNo);
+		query.setParameter("active", state.ordinal());
+		return query.list();
+	}
+
 }
