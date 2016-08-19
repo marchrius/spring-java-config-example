@@ -143,7 +143,7 @@ public class CandidateController {
 		return updateFlag;
 	}
 	
-	@RequestMapping (value = "/auth/candidateDetails", method = RequestMethod.GET)
+	@RequestMapping (value = "/auth/candidateDetails/{candidateId}", method = RequestMethod.GET)
 	@ResponseBody
 	public Candidate getCandidateDetails (@PathVariable int candidateId) {
 		Candidate candidate = hmsService.getCandidateDetails(QueryResultBySateEnum.ACTIVE, candidateId);

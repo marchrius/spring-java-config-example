@@ -8,7 +8,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 	<jsp:include page="common/css.jsp"></jsp:include>
-
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/bootstrap/css/dataTables.bootstrap.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/bootstrap/css/bootstrap-datetimepicker.min.css"></link>
 </head>
 <body class="skin-blue sidebar-mini">
   <div class="wraper">
@@ -57,7 +58,7 @@
 											  		  <td>${candidate.room.roomType.roomCategory }</td>
 											  		  <td>${candidate.candidateFee }</td>
 											  		  <td>${candidate.dueDate }</td>
-											  		  <td><button name="payNow" class="btn btn-xs btn-success" value="$(candidate.candidateId)">Pay</button></td>
+											  		  <td><button name="payNow" class="btn btn-xs btn-success" value="${candidate.candidateId}">Pay</button></td>
 											  		  </tr>
 											  		  </c:forEach>
 											  </tbody>
@@ -89,7 +90,7 @@
 											  		  <td>${candidate.room.roomType.roomCategory }</td>
 											  		  <td>${candidate.candidateFee }</td>
 											  		  <td>${candidate.dueDate }</td>
-											  		  <td ><button name="payNow" class="btn btn-xs btn-success" value="$(candidate.candidateId)">Pay</button></td>
+											  		  <td ><button name="payNow" class="btn btn-xs btn-success" value="${candidate.candidateId}">Pay</button></td>
 											  		  </tr>
 											  		  </c:forEach>
 											  </tbody>
@@ -104,7 +105,69 @@
                   </div>
                  </div>
              </div>
-             
+             <div class="modal fade" id="paymentForm">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+                    <h4 class="modal-title"></h4>
+                  </div>
+                  <div class="modal-body">
+                   <div class="form-group row" id="isPaid">
+                   <div class="col-md-12">
+                    <label for="section" class="col-xs-3" style="padding-top: 7px;padding-left:0px;">Is Balance left?</label>
+                    <div class="col-md-2">
+                   <div class="radio">
+                        <label>
+                          <input type="radio" checked="" value="option1" id="optionsRadios1" name="optionsRadios">
+                          No
+                        </label>
+                      </div>
+                      </div>
+                      <div class="col-md-3">
+                      <div class="radio">
+                        <label>
+                          <input type="radio"  value="option1" id="optionsRadios1" name="optionsRadios">
+                          Yes
+                        </label>
+                      </div>
+                      </div>
+                   </div>
+                  </div>
+                 <div class="form-group row" id="paidDate" style="display: none;">
+                      <label for="section" class="col-xs-3" >Paid Amount</label>
+                      <div class="col-xs-6">
+                        <input type="text" placeholder="Paid Amount" id="paid" name="paid" class="form-control">
+                      </div>
+                    </div>
+                    
+                  <div class="form-group row" id="dueAmount" style="display: none;">
+                      <label for="section" class="col-xs-3" >Due Amount</label>
+                      <div class="col-xs-6">
+                        <input type="text" placeholder="Due Amount" id="due" name="due" class="form-control" readonly="readonly">
+                      </div>
+                    </div>
+                    
+                  <div class="form-group row" id="dueDateDiv" style="display: none;">
+                      <label for="section" class="col-xs-3" >Due Date</label>
+                      <div class="col-xs-6">
+                        <input type="text" placeholder="Due Date" id="dueDate" class="form-control" name="dueDate">
+                      </div>
+                    </div>      
+                  
+                 
+                 
+                        
+                    <!-- <p>One fine body...</p> -->
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary red" onclick="updateVacateData()" >Cancel Vacate</button>
+                    <button type="button" class="btn btn-primary" onclick="updateVacateData()">Update Vacate</button>
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div>
          </section>
          
          </div>
@@ -113,16 +176,22 @@
         </div>
         
         <jsp:include page="common/scripts.jsp"></jsp:include>
-      <script type="text/javascript">
+      
+       <script type="text/javascript" src="<%=request.getContextPath() %>/resources/bootstrap/js/moment.min.js"></script>
+      <script type="text/javascript" src="<%=request.getContextPath() %>/resources/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+       <script type="text/javascript" src="<%=request.getContextPath() %>/resources/bootstrap/js/jquery.dataTables.min.js"></script>
+      <script type="text/javascript" src="<%=request.getContextPath() %>/resources/bootstrap/js/dataTables.bootstrap.min.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/appjs/payments.js"></script>
+	<script type="text/javascript">
 		  $(function(){
 			  $("#payment-tab").addClass("tabActive");
 			  $('#example1').DataTable();
 			  $('#pendingPays').DataTable();
+			  var nowDate = new Date();
+				var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
+				  $('#dueDate').datetimepicker({format: 'DD-MM-YYYY',minDate: today });	
 			  });
       </script>
-       <script type="text/javascript" src="<%=request.getContextPath() %>/resources/bootstrap/js/jquery.dataTables.min.js"></script>
-      <script type="text/javascript" src="<%=request.getContextPath() %>/resources/bootstrap/js/dataTables.bootstrap.min.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/appjs/payments.js"></script>
        </body>
        
        </html>
