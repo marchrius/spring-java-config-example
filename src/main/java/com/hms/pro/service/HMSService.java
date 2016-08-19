@@ -47,4 +47,7 @@ public interface HMSService {
 
 	List<Candidate> getCandidatesOfRoom(QueryResultBySateEnum active,
 			Integer roomNo);
+
+	List<Candidate> getPaymentsOfCandidates(QueryResultBySateEnum active,
+			Date date, boolean b);
 }

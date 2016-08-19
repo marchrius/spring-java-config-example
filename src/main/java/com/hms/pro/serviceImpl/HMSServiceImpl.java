@@ -130,4 +130,10 @@ public class HMSServiceImpl implements HMSService{
 		return candiateDao.getCandidatesOfRoom(active, roomNo);
 	}
 
+	@Transactional(readOnly=true)
+	public List<Candidate> getPaymentsOfCandidates(
+			QueryResultBySateEnum state, Date date, boolean isPending) {
+		return candiateDao.getPaymentsOfCandidates(state,date,isPending);
+	}
+
 }

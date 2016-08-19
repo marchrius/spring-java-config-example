@@ -15,8 +15,8 @@
                       
         </li>
         
-        <li class="messages-menu">
-        <a  href="#" >
+        <li class="messages-menu" id="payment-tab">
+        <a  href="<%=request.getContextPath() %>/auth/payments" >
                  
                   <span class="user user-menu "><B>Payments</B></span>
                    

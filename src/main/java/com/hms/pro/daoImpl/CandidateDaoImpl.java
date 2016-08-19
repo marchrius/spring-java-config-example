@@ -62,4 +62,20 @@ public class CandidateDaoImpl extends AbstractDaoImpl<Candidate, Integer> implem
 		return query.list();
 	}
 
+	public List<Candidate> getPaymentsOfCandidates(QueryResultBySateEnum state,
+			Date date,boolean isDelayed) {
+		Query query=null;
+		if(isDelayed){
+			// Pendings
+			query=getCurrentSession().createQuery("from Candidate c where c.dueDate <=:date and c.isActive=:state");
+		}else{
+			// today and follwed by dates
+			query=getCurrentSession().createQuery("from Candidate c where c.dueDate >=:date and c.isActive=:state");
+		}
+		
+		query.setParameter("date", date);
+		query.setParameter("state", state.ordinal());
+		return query.list();
+	}
+
 }
