@@ -79,7 +79,10 @@ public class CandidateController {
 		if(candidateObj.getCandidateFee()-candidateObj.getPaidAmount()>0){
 			int due=candidateObj.getCandidateFee()-candidateObj.getPaidAmount();
 			candidate.setDueAmount(due);
-			candidate.setDueDate(dateFormat.parse(candidateObj.getDueDate()));
+			c.setTime(paymentDate);
+			c.add(Calendar.DATE,30);
+			candidate.setDueDate(c.getTime());
+			candidate.setPendingDueDate(dateFormat.parse(candidateObj.getDueDate()));
 			candidate.setPaymentStatus("Pending");
 		}else{
 			candidate.setDueAmount(candidateObj.getCandidateFee());

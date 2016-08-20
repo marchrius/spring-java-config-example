@@ -50,6 +50,7 @@ public class Candidate implements java.io.Serializable {
 	private int isActive; // 1 for active 0 for inactive
 	private Date vacationDate;
 	private int vacationFlag; // 1 for active 0 for incative
+	private Date pendingDueDate;
 	private Set<Payment> payments = new HashSet<Payment>(0);
 
 	public Candidate() {
@@ -287,6 +288,16 @@ public class Candidate implements java.io.Serializable {
 
 	public void setVacationFlag(int vacationFlag) {
 		this.vacationFlag = vacationFlag;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "pending_due_date", length = 10)
+	public Date getPendingDueDate() {
+		return pendingDueDate;
+	}
+
+	public void setPendingDueDate(Date pendingDueDate) {
+		this.pendingDueDate = pendingDueDate;
 	}
 	
 	

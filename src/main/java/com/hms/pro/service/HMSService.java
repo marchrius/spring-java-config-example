@@ -50,4 +50,9 @@ public interface HMSService {
 
 	List<Candidate> getPaymentsOfCandidates(QueryResultBySateEnum active,
 			Date date, boolean b);
+	
+	CandidateUI getPaymentDetails(int candidateId);
+
+	List<Candidate> getPaymentsOfCandidates(QueryResultBySateEnum active,
+			Date date, boolean b, int buildingId);
 }

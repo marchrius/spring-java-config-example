@@ -78,4 +78,33 @@ public class CandidateDaoImpl extends AbstractDaoImpl<Candidate, Integer> implem
 		return query.list();
 	}
 
+	public CandidateUI getPaymentDetails(int candidateId) {
+		
+		String qry="SELECT c.name as fullName, r.room_name as roomName, c.candidate_fee as candidateFee, c.due_amount as dueAmount" +
+				" FROM candidate c join room r on r.room_id = c.room where c.candidate_id=:id";
+		Query query=getCurrentSession().createSQLQuery(qry);
+		query.setParameter("id", candidateId);
+		List<CandidateUI> candidates=(List<CandidateUI>) excuteQuery(query, CandidateUI.class);
+		if(candidates.size()>0){
+			return candidates.get(0);
+		}
+		return null;
+	}
+
+	public List<Candidate> getPaymentsOfCandidates(QueryResultBySateEnum state,
+			Date date, boolean isPending, int buildingId) {
+		Query query=null;
+		if(isPending){
+			// Pendings
+			query=getCurrentSession().createQuery("from Candidate c where c.dueDate <=:date and c.isActive=:state and c.room.building.buildingId=:id");
+		}else{
+			// today and follwed by dates
+			query=getCurrentSession().createQuery("from Candidate c where c.dueDate >=:date and c.isActive=:state and  c.room.building.buildingId=:id");
+		}
+		query.setParameter("id", buildingId);
+		query.setParameter("date", date);
+		query.setParameter("state", state.ordinal());
+		return query.list();
+	}
+
 }

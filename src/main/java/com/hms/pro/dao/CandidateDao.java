@@ -17,4 +17,7 @@ public interface CandidateDao extends AbstractDao<Candidate, Integer> {
 			Integer roomNo);
 	List<Candidate> getPaymentsOfCandidates(QueryResultBySateEnum state,
 			Date date, boolean isPending);
+	CandidateUI getPaymentDetails(int candidateId);
+	List<Candidate> getPaymentsOfCandidates(QueryResultBySateEnum state,
+			Date date, boolean isPending, int buildingId);
 }

@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page isELIgnored="false" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -26,9 +27,37 @@
                   <div class="box-body" >
                   	
                   	  <div class="col-md-12" style="box-shadow:3px 0px 15px 2px rgba(0, 0, 0, 0.125) ! important; padding-top:5px;">
-                  			<div class="nav-tabs-custom">
+                  	  <div class="row">
+							<div class="col-md-6">
+								<label class="col-md-3">Building</label>
+								<div class="col-md-6">
+								<select class="form-control" id="buildingSelect">
+								<option value="">- All -</option>
+								<c:forEach var="building" items="${buildings}" varStatus="count">
+								
+      								<c:choose>
+    <c:when test="${buildingId eq building.buildingId}">
+       <option value="${building.buildingId}" selected="selected">${building.buildingName}</option>
+    </c:when>
+    <c:otherwise>
+        <option value="${building.buildingId}">${building.buildingName}</option>
+    </c:otherwise>
+</c:choose>
+								</c:forEach>
+								</select>
+								</div>
+								<div class="col-md-3">
+									<button class="btn btn-primary" id="Go">Go</button>
+								</div>
+							</div>
+						
+							</div>
+							 <div class="row" style="height: 2px; background: #f5f5f5;margin-top:5px;"></div>
+							<div class="row" style="padding:0px 5px 0px 5px;">
+                  			<div class="nav-tabs-custom" >
                   				<ul class="nav nav-tabs">
                   					<li class="active"><a data-toggle="tab" href="#payments" aria-expanded="true">Today Payments</a></li>
+                  					<li class=""><a data-toggle="tab" href="#delayed" aria-expanded="false">Delayed Payments</a></li>
                   					<li class=""><a data-toggle="tab" href="#pendings" aria-expanded="false">Pending Payments</a></li>
                 				</ul>
                   			<div class="tab-content">
@@ -43,7 +72,8 @@
 											      <th>Room No</th>
 											      <th>Room Type</th>
 											      <th>Fee Amount</th>
-											      <th>Paid Date</th>
+											      <th>Due Date</th>
+											      <th>Due Amount</th>
 											      <th>Action</th>   
 											    </tr>
 											  </thead>
@@ -57,14 +87,15 @@
 											  		  <td>${candidate.room.roomName }</td>
 											  		  <td>${candidate.room.roomType.roomCategory }</td>
 											  		  <td>${candidate.candidateFee }</td>
-											  		  <td>${candidate.dueDate }</td>
+											  		  <td><fmt:formatDate value="${candidate.dueDate}" pattern="dd-MMM-yyyy"/></td>
+											  		  <td>${candidate.dueAmount }</td>
 											  		  <td><button name="payNow" class="btn btn-xs btn-success" value="${candidate.candidateId}">Pay</button></td>
 											  		  </tr>
 											  		  </c:forEach>
 											  </tbody>
 											</table>
                   				</div>
-                  				<div id="pendings" class="tab-pane ">
+                  				<div id="delayed" class="tab-pane ">
                   						<table class="table table-bordered table-striped dataTable" id="pendingPays">
 											  <thead>
 											    <tr>
@@ -75,7 +106,8 @@
 											      <th>Room No</th>
 											      <th>Room Type</th>
 											      <th>Fee Amount</th>
-											      <th>Paid Date</th>
+											      <th>Due Date</th>
+											      <th>Due Amount</th>
 											      <th>Action</th>   
 											    </tr>
 											  </thead>
@@ -89,17 +121,20 @@
 											  		  <td>${candidate.room.roomName }</td>
 											  		  <td>${candidate.room.roomType.roomCategory }</td>
 											  		  <td>${candidate.candidateFee }</td>
-											  		  <td>${candidate.dueDate }</td>
+											  		  <td><fmt:formatDate value="${candidate.dueDate}" pattern="dd-MMM-yyyy"/></td>
+											  		  <td>${candidate.dueAmount }</td>
 											  		  <td ><button name="payNow" class="btn btn-xs btn-success" value="${candidate.candidateId}">Pay</button></td>
 											  		  </tr>
 											  		  </c:forEach>
 											  </tbody>
 											</table>
                   				</div>
+                  				<div id="pendings" class="tab-pane ">
+                  				</div>
                   			</div>
 								                  			
                   			</div>
-                  			
+                  			</div>
                   	  </div>
                   </div>
                   </div>
@@ -119,7 +154,7 @@
                     <div class="col-md-2">
                    <div class="radio">
                         <label>
-                          <input type="radio" checked="" value="option1" id="optionsRadios1" name="optionsRadios">
+                          <input type="radio" checked="" value="No" id="optionsRadios1" name="optionsRadios">
                           No
                         </label>
                       </div>
@@ -127,21 +162,21 @@
                       <div class="col-md-3">
                       <div class="radio">
                         <label>
-                          <input type="radio"  value="option1" id="optionsRadios1" name="optionsRadios">
+                          <input type="radio"  value="Yes" id="optionsRadios2" name="optionsRadios">
                           Yes
                         </label>
                       </div>
                       </div>
                    </div>
                   </div>
-                 <div class="form-group row" id="paidDate" style="display: none;">
+                 <div class="form-group row" id="paidAmountDiv" style="display: none;">
                       <label for="section" class="col-xs-3" >Paid Amount</label>
                       <div class="col-xs-6">
-                        <input type="text" placeholder="Paid Amount" id="paid" name="paid" class="form-control">
+                        <input type="text" placeholder="Paid Amount" id="paid" name="paid" class="form-control numberOnly">
                       </div>
                     </div>
                     
-                  <div class="form-group row" id="dueAmount" style="display: none;">
+                  <div class="form-group row" id="dueAmountDiv" style="display: none;">
                       <label for="section" class="col-xs-3" >Due Amount</label>
                       <div class="col-xs-6">
                         <input type="text" placeholder="Due Amount" id="due" name="due" class="form-control" readonly="readonly">
@@ -162,8 +197,8 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary red" onclick="updateVacateData()" >Cancel Vacate</button>
-                    <button type="button" class="btn btn-primary" onclick="updateVacateData()">Update Vacate</button>
+                    <button type="button" class="btn btn-success" name="done">Done</button>
+                  
                   </div>
                 </div><!-- /.modal-content -->
               </div><!-- /.modal-dialog -->

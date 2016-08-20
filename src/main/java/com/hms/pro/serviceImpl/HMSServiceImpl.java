@@ -136,4 +136,13 @@ public class HMSServiceImpl implements HMSService{
 		return candiateDao.getPaymentsOfCandidates(state,date,isPending);
 	}
 
+	public CandidateUI getPaymentDetails(int candidateId) {
+		return candiateDao.getPaymentDetails(candidateId);
+	}
+
+	public List<Candidate> getPaymentsOfCandidates(
+			QueryResultBySateEnum state, Date date, boolean isPending, int buildingId) {
+		return candiateDao.getPaymentsOfCandidates(state,date,isPending,buildingId);
+	}
+
 }

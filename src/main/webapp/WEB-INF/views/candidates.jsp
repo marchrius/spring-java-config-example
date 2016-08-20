@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page isELIgnored="false" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -148,7 +149,7 @@
 											  		  <td>${candidate.room.roomName }</td>
 											  		  <td>${candidate.room.roomType.roomCategory }</td>
 											  		  <td>${candidate.candidateFee }</td>
-											  		  <td>${candidate.joinDate }</td>
+											  		  <td><fmt:formatDate value="${candidate.joinDate}" pattern="dd-MMM-yyyy"/></td>
 											  		  <td style="padding-left: 0px;
     padding-right: 0px;">
 											  		  <div class="btn-group">
@@ -286,8 +287,10 @@
 			+'									                        <li><a href="#" onclick="showMoreInfo('+candidate.candidateId+')" >View More info...</a></li>'
 		+'                  										   </ul> </div>'
 		   	 				}
+		   	 				//var joinDate=moment(candidate.joinDate, "yyyy-mm-dd").format("D-MMM-yyyy");
+		   	 				//console.log(moment(candidate.joinDate).format("DD-MMM-YYYY"));
 		   	 				var rowNode=table.row.add([index+1,candidate.fullName,candidate.mobileNo,candidate.emergencyContactNo,
-		   	 				                           candidate.room, candidate.roomCategory, candidate.candidateFee,candidate.joinDate, toggleDropdown
+		   	 				                           candidate.room, candidate.roomCategory, candidate.candidateFee,moment(candidate.joinDate).format("DD-MMM-YYYY"), toggleDropdown
 		   	 				                           ]).draw().node();
 		   	 			if(candidate.vacationFlag == 0) {
 		   	 				console.log("Zero :")

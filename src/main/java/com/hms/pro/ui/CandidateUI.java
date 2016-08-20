@@ -28,7 +28,8 @@ public class CandidateUI {
 	private int vacationFlag;
 	private String roomCategory;
 	private Date vacationDate;
-	
+	private int dueAmount;
+	private String roomName;
 	
 	
 	
@@ -158,6 +159,18 @@ public class CandidateUI {
 	}
 	public void setJoinDate(Date joinDate) {
 		this.joinDate = joinDate;
+	}
+	public int getDueAmount() {
+		return dueAmount;
+	}
+	public void setDueAmount(int dueAmount) {
+		this.dueAmount = dueAmount;
+	}
+	public String getRoomName() {
+		return roomName;
+	}
+	public void setRoomName(String roomName) {
+		this.roomName = roomName;
 	}
 	
 	
