@@ -56,9 +56,9 @@
 							<div class="row" style="padding:0px 5px 0px 5px;">
                   			<div class="nav-tabs-custom" >
                   				<ul class="nav nav-tabs">
-                  					<li class="active"><a data-toggle="tab" href="#payments" aria-expanded="true">Today Payments</a></li>
-                  					<li class=""><a data-toggle="tab" href="#delayed" aria-expanded="false">Delayed Payments</a></li>
-                  					<li class=""><a data-toggle="tab" href="#pendings" aria-expanded="false">Pending Payments</a></li>
+                  					<li class="active text-yellow"><a data-toggle="tab" href="#payments" aria-expanded="true" class="text-blue">Today Payments</a></li>
+                  					<li class=""><a data-toggle="tab" href="#delayed" aria-expanded="false" class="text-red">Delayed Payments</a></li>
+                  					<li class=""><a data-toggle="tab" href="#pendings" aria-expanded="false" class="text-yellow">Pending Payments</a></li>
                 				</ul>
                   			<div class="tab-content">
                   				<div id="payments" class="tab-pane active">
@@ -89,7 +89,7 @@
 											  		  <td>${candidate.candidateFee }</td>
 											  		  <td><fmt:formatDate value="${candidate.dueDate}" pattern="dd-MMM-yyyy"/></td>
 											  		  <td>${candidate.dueAmount }</td>
-											  		  <td><button name="payNow" class="btn btn-xs btn-success" value="${candidate.candidateId}">Pay</button></td>
+											  		  <td><button name="payNow" class="btn btn-xs btn-primary" value="${candidate.candidateId}">Pay</button></td>
 											  		  </tr>
 											  		  </c:forEach>
 											  </tbody>
@@ -123,7 +123,7 @@
 											  		  <td>${candidate.candidateFee }</td>
 											  		  <td><fmt:formatDate value="${candidate.dueDate}" pattern="dd-MMM-yyyy"/></td>
 											  		  <td>${candidate.dueAmount }</td>
-											  		  <td ><button name="payNow" class="btn btn-xs btn-success" value="${candidate.candidateId}">Pay</button></td>
+											  		  <td ><button name="payNow" class="btn btn-xs btn-danger" value="${candidate.candidateId}">Pay</button></td>
 											  		  </tr>
 											  		  </c:forEach>
 											  </tbody>
