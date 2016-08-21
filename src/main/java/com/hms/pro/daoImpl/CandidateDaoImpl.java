@@ -67,10 +67,10 @@ public class CandidateDaoImpl extends AbstractDaoImpl<Candidate, Integer> implem
 		Query query=null;
 		if(isDelayed){
 			// Pendings
-			query=getCurrentSession().createQuery("from Candidate c where c.dueDate <=:date and c.isActive=:state");
+			query=getCurrentSession().createQuery("from Candidate c where c.dueDate <=:date and c.isActive=:state order by c.dueDate ASC");
 		}else{
 			// today and follwed by dates
-			query=getCurrentSession().createQuery("from Candidate c where c.dueDate >=:date and c.isActive=:state");
+			query=getCurrentSession().createQuery("from Candidate c where c.dueDate >=:date and c.isActive=:state ORDER BY c.dueDate ASC");
 		}
 		
 		query.setParameter("date", date);
@@ -96,15 +96,33 @@ public class CandidateDaoImpl extends AbstractDaoImpl<Candidate, Integer> implem
 		Query query=null;
 		if(isPending){
 			// Pendings
-			query=getCurrentSession().createQuery("from Candidate c where c.dueDate <=:date and c.isActive=:state and c.room.building.buildingId=:id");
+			query=getCurrentSession().createQuery("from Candidate c where c.dueDate <=:date and c.isActive=:state and c.room.building.buildingId=:id order by c.dueDate ASC");
 		}else{
 			// today and follwed by dates
-			query=getCurrentSession().createQuery("from Candidate c where c.dueDate >=:date and c.isActive=:state and  c.room.building.buildingId=:id");
+			query=getCurrentSession().createQuery("from Candidate c where c.dueDate >=:date and c.isActive=:state and  c.room.building.buildingId=:id ORDER BY c.dueDate ASC");
 		}
 		query.setParameter("id", buildingId);
 		query.setParameter("date", date);
 		query.setParameter("state", state.ordinal());
 		return query.list();
+	}
+
+	public List<Candidate> getPaymentsOfCandidates(
+			QueryResultBySateEnum state, int buildingId) {
+		Query query=null;
+		if(buildingId!=0){
+			query=getCurrentSession().createQuery("from Candidate c where c.isActive=:state and c.paymentStatus='Pending' and c.room.building.buildingId=:id ORDER BY c.pendingDueDate ASC");
+			query.setParameter("id", buildingId);
+		}else{
+			query=getCurrentSession().createQuery("from Candidate c where c.isActive=:state and c.paymentStatus='Pending' ORDER BY c.pendingDueDate ASC");
+		}
+			// today and follwed by dates
+			
+		
+		
+		query.setParameter("state", state.ordinal());
+		return query.list();
+
 	}
 
 }

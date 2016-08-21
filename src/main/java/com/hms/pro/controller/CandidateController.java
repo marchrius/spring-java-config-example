@@ -4,7 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +29,7 @@ import com.hms.pro.dao.FloorDao;
 import com.hms.pro.domain.Building;
 import com.hms.pro.domain.Candidate;
 import com.hms.pro.domain.Floor;
+import com.hms.pro.domain.Payment;
 import com.hms.pro.domain.Room;
 import com.hms.pro.domain.RoomType;
 import com.hms.pro.service.HMSService;
@@ -92,6 +95,14 @@ public class CandidateController {
 			candidate.setPaymentStatus("DONE");
 			LOGGER.debug("NEXT DUE :"+c.getTime());
 		}
+		candidate.setVacationFlag(1);
+		Set<Payment> payments=new LinkedHashSet<Payment>();
+		Payment payment=new Payment();
+		payment.setCandidate(candidate);
+		payment.setPaidAmount(candidateObj.getPaidAmount());
+		payment.setPaidDate(paymentDate);
+		payments.add(payment);
+		candidate.setPayments(payments);
 		hmsService.saveCandidate(candidate);
 		
 		return "";

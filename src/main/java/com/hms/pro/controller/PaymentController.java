@@ -4,7 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hms.pro.constants.QueryResultBySateEnum;
 import com.hms.pro.domain.Building;
 import com.hms.pro.domain.Candidate;
+import com.hms.pro.domain.Payment;
 import com.hms.pro.service.HMSService;
 import com.hms.pro.ui.CandidateUI;
 
@@ -41,10 +44,13 @@ public class PaymentController {
 				QueryResultBySateEnum.ACTIVE, new Date(), false); // today and
 																	// follwed
 																	// dates
-		List<Candidate> pendingPays = hmsService.getPaymentsOfCandidates(
-				QueryResultBySateEnum.ACTIVE, new Date(), true); // pending pays
+		List<Candidate> delayed = hmsService.getPaymentsOfCandidates(
+				QueryResultBySateEnum.ACTIVE, new Date(), true); // delayed pays
+		
+		List<Candidate> pendings=hmsService.getPaymentsOfCandidates(QueryResultBySateEnum.ACTIVE,0); // buildingId
 		model.addAttribute("todayPayments", payCandidates);
-		model.addAttribute("pendingPays", pendingPays);
+		model.addAttribute("pendingPays", delayed);
+		model.addAttribute("pendings", pendings);
 		return "paymentPage";
 	}
 
@@ -80,6 +86,10 @@ public class PaymentController {
 		if (feeAmount >= paidAmount) {
 			dueAmount = feeAmount - paidAmount;
 		}
+		Set<Payment> payments=new LinkedHashSet<Payment>();
+		Payment payment=new Payment();
+		payment.setPaidAmount(paidAmount);
+		payment.setPaidDate(new Date());
 		Candidate candidate=hmsService.getCandidateDetails(QueryResultBySateEnum.ACTIVE, cid);		
 		Calendar c = Calendar.getInstance();
 		Date canidatePaymentDate=candidate.getDueDate();
@@ -98,6 +108,11 @@ public class PaymentController {
 			candidate.setPendingDueDate(dateFormat.parse(dueDate));
 			candidate.setDueAmount(dueAmount);
 		}
+		payment.setCandidate(candidate);
+		payments.add(payment);
+		candidate.setPayments(payments);
+		
+		
 		hmsService.saveCandidate(candidate);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}

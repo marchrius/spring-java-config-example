@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -254,7 +255,7 @@ public class Candidate implements java.io.Serializable {
 		this.paymentStatus = paymentStatus;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "candidate")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "candidate",cascade=CascadeType.ALL)
 	public Set<Payment> getPayments() {
 		return this.payments;
 	}

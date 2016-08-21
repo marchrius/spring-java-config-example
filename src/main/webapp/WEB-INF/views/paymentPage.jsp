@@ -58,11 +58,11 @@
                   				<ul class="nav nav-tabs">
                   					<li class="active text-yellow"><a data-toggle="tab" href="#payments" aria-expanded="true" class="text-blue">Today Payments</a></li>
                   					<li class=""><a data-toggle="tab" href="#delayed" aria-expanded="false" class="text-red">Delayed Payments</a></li>
-                  					<li class=""><a data-toggle="tab" href="#pendings" aria-expanded="false" class="text-yellow">Pending Payments</a></li>
+                  					<li class=""><a data-toggle="tab" href="#pendings" aria-expanded="false" class="text-yellow">Balance Dues</a></li>
                 				</ul>
                   			<div class="tab-content">
                   				<div id="payments" class="tab-pane active">
-                  					<table class="table table-bordered table-striped dataTable" id="example1">
+                  					<table class="table table-bordered table-striped dataTable" id="example1" style="cursor: pointer;">
 											  <thead>
 											    <tr>
 											      <th>#NO</th>
@@ -96,7 +96,7 @@
 											</table>
                   				</div>
                   				<div id="delayed" class="tab-pane ">
-                  						<table class="table table-bordered table-striped dataTable" id="pendingPays">
+                  						<table class="table table-bordered table-striped dataTable" id="pendingPays" style="cursor: pointer;">
 											  <thead>
 											    <tr>
 											      <th>#NO</th>
@@ -130,6 +130,38 @@
 											</table>
                   				</div>
                   				<div id="pendings" class="tab-pane ">
+                  				<table class="table table-bordered table-striped dataTable" id="pendings" style="cursor: pointer;">
+											  <thead>
+											    <tr>
+											      <th>#NO</th>
+											      <th>Candidate Name</th>
+											      <th>Mobile No</th>
+											      <th>Emergency Phone</th>
+											      <th>Room No</th>
+											      <th>Room Type</th>
+											      <th>Fee Amount</th>
+											      <th>Due Date</th>
+											      <th>Due Amount</th>
+											      <th>Action</th>   
+											    </tr>
+											  </thead>
+											  <tbody>
+											    <c:forEach var="candidate" items="${pendings }" varStatus="count">
+											  		<tr>
+											  		  <td>${count.count }</td>
+											  		  <td>${candidate.name }</td>
+											  		  <td>${candidate.mobileNo }</td>
+											  		  <td>${candidate.emergencyContactNo }</td>
+											  		  <td>${candidate.room.roomName }</td>
+											  		  <td>${candidate.room.roomType.roomCategory }</td>
+											  		  <td>${candidate.candidateFee }</td>
+											  		  <td><fmt:formatDate value="${candidate.pendingDueDate}" pattern="dd-MMM-yyyy"/></td>
+											  		  <td>${candidate.dueAmount }</td>
+											  		  <td ><button name="payNow" class="btn btn-xs btn-warning" value="${candidate.candidateId}">Pay</button></td>
+											  		  </tr>
+											  		  </c:forEach>
+											  </tbody>
+								</table>			  
                   				</div>
                   			</div>
 								                  			
