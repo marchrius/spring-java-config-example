@@ -48,6 +48,7 @@ public class PaymentController {
 				QueryResultBySateEnum.ACTIVE, new Date(), true); // delayed pays
 		
 		List<Candidate> pendings=hmsService.getPaymentsOfCandidates(QueryResultBySateEnum.ACTIVE,0); // buildingId
+		
 		model.addAttribute("todayPayments", payCandidates);
 		model.addAttribute("pendingPays", delayed);
 		model.addAttribute("pendings", pendings);
@@ -63,10 +64,14 @@ public class PaymentController {
 				QueryResultBySateEnum.ACTIVE, new Date(), false,buildingId); // today and
 																	// follwed
 																	// dates
-		List<Candidate> pendingPays = hmsService.getPaymentsOfCandidates(
-				QueryResultBySateEnum.ACTIVE, new Date(), true, buildingId); // pending pays
+		List<Candidate> delayed = hmsService.getPaymentsOfCandidates(
+				QueryResultBySateEnum.ACTIVE, new Date(), true, buildingId); // delayed pays
+		
+		List<Candidate> pendings=hmsService.getPaymentsOfCandidates(QueryResultBySateEnum.ACTIVE,0); // buildingId
+		
 		model.addAttribute("todayPayments", payCandidates);
-		model.addAttribute("pendingPays", pendingPays);
+		model.addAttribute("pendingPays", delayed);
+		model.addAttribute("pendings", pendings);
 		model.addAttribute("buildingId", buildingId);
 		return "paymentPage";
 	}
@@ -115,5 +120,13 @@ public class PaymentController {
 		
 		hmsService.saveCandidate(candidate);
 		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/auth/paymentHistory/{candidateId}")
+	public String showPaymentHistory(@PathVariable int candidateId,Model model){
+		List<Payment> payments=hmsService.getPaymentHistory(candidateId);
+		LOGGER.debug("Payments List : "+payments.size());
+		model.addAttribute("payments", payments);
+		return "paymentHistory";
 	}
 }

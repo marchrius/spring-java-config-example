@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -124,17 +126,21 @@ public class CandidateController {
 	
 	@RequestMapping(value="/auth/candidates")
 	public String showCandidates(Model model){
-		/*List<Candidate> candidates=hmsService.getCandidates(QueryResultBySateEnum.ACTIVE);
-		model.addAttribute("candidates", candidates);*/
 		List<Building> buildings=hmsService.getBuildings(QueryResultBySateEnum.ACTIVE);
 		model.addAttribute("buildings", buildings);
 		return "candidates";
 	}
 	
-	@RequestMapping (value = "/auth/candidatesList/{buildingId}", method=RequestMethod.GET)
+	@RequestMapping (value = "/auth/candidatesList/{buildingId}/{onlyVacates}", method=RequestMethod.GET)
 	@ResponseBody
-	public List<CandidateUI> getCandidatesList (@PathVariable int buildingId) {
-		List<CandidateUI> candidates=hmsService.getCandidates(QueryResultBySateEnum.ACTIVE, buildingId);
+	public List<CandidateUI> getCandidatesList (@PathVariable int buildingId,@PathVariable boolean onlyVacates) {
+		List<CandidateUI> candidates=null;
+		if(onlyVacates){
+			candidates=hmsService.getCandidates(QueryResultBySateEnum.ACTIVE, buildingId,true);
+		}else{
+			candidates=hmsService.getCandidates(QueryResultBySateEnum.ACTIVE, buildingId,false);
+		}
+		
 		LOGGER.debug("Size "+candidates.size());
 		return candidates;
 	}
@@ -157,10 +163,65 @@ public class CandidateController {
 		return updateFlag;
 	}
 	
-	@RequestMapping (value = "/auth/candidateDetails/{candidateId}", method = RequestMethod.GET)
+	@RequestMapping(value="/auth/cancelVacate/{candidateId}")
+	@ResponseBody
+	public HttpEntity<String> cancelVacate(@PathVariable int candidateId){
+		int updateFlag=hmsService.updateVacateData(QueryResultBySateEnum.ACTIVE, candidateId, null);
+		HttpEntity<String> entity=new ResponseEntity<String>(HttpStatus.OK);
+		return entity;
+	}
+	@RequestMapping(value="/auth/vacate/{candidateId}")
+	@ResponseBody
+	public HttpEntity<String> vacate(@PathVariable int candidateId){
+		Candidate candidate = hmsService.getCandidateDetails(QueryResultBySateEnum.ACTIVE, candidateId);
+		candidate.setIsActive(QueryResultBySateEnum.DEACTIVE.ordinal());
+		hmsService.saveCandidate(candidate);
+		HttpEntity<String> entity=new ResponseEntity<String>(HttpStatus.OK);
+		return entity;
+	}
+	@RequestMapping (value = "/auth/candidateDetails/{candidateId}", method = RequestMethod.GET, consumes={"application/json"})
 	@ResponseBody
 	public Candidate getCandidateDetails (@PathVariable int candidateId) {
 		Candidate candidate = hmsService.getCandidateDetails(QueryResultBySateEnum.ACTIVE, candidateId);
 		return candidate;
+	}
+	
+	@RequestMapping (value = "/auth/candidateDetails/{candidateId}", method = RequestMethod.GET, consumes={"text/html"})
+	public String getCandidateDetails (@PathVariable int candidateId,Model model) {
+		Candidate candidate = hmsService.getCandidateDetails(QueryResultBySateEnum.ACTIVE, candidateId);
+		model.addAttribute("candidate", candidate);
+		return "candidateMoreInfo";
+	}
+	
+	@RequestMapping(value="/auth/editCandidateInfo/{cid}")
+	public String editCandidateForm(@PathVariable int cid, Model model){
+		Candidate candidate = hmsService.getCandidateDetails(QueryResultBySateEnum.ACTIVE, cid);
+		List<RoomType> roomTypes=hmsService.getRoomTypes(QueryResultBySateEnum.ACTIVE);
+		List<Building> buildings=hmsService.getBuildings(QueryResultBySateEnum.ACTIVE);
+		model.addAttribute("roomTypes",roomTypes);
+		model.addAttribute("buildings", buildings);
+		model.addAttribute("candidate", candidate);
+		return "editCandidateInfo";
+	}
+	
+	@RequestMapping(value="/auth/updateCandidate", method=RequestMethod.POST)
+	public String updateCandidate(@ModelAttribute CandidateUI candidateObj, Model model) throws ParseException{
+		Candidate candidate=hmsService.getCandidateDetails(QueryResultBySateEnum.ACTIVE, candidateObj.getCandidateId());
+		candidate.setName(candidateObj.getFullName());
+		candidate.setAddress(candidateObj.getAddress());
+		candidate.setMobileNo(candidateObj.getMobileNo());
+		candidate.setEmergencyContactNo(candidateObj.getEmergencyContactNo());
+		candidate.setOccupation(candidateObj.getOccupation());
+		candidate.setWorkPlace(candidateObj.getWorkPlace());
+		candidate.setIdType(candidateObj.getIdType());
+		candidate.setIdNo(candidateObj.getIdNo());
+		candidate.setRoom(new Room(candidateObj.getRoom()));
+		SimpleDateFormat dateFormat=new SimpleDateFormat("dd-MM-yyyy");
+		Date paymentDate=dateFormat.parse(candidateObj.getPaymentDate());
+		candidate.setCanPaymentDate(paymentDate);
+		candidate.setCandidateFee(candidateObj.getCandidateFee());
+		LOGGER.debug("Updating candidate :"+candidate.getCandidateId());
+		hmsService.saveCandidate(candidate);
+		return null;
 	}
 }

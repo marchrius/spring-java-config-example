@@ -19,6 +19,7 @@ import com.hms.pro.dao.RoomTypeDao;
 import com.hms.pro.domain.Building;
 import com.hms.pro.domain.Candidate;
 import com.hms.pro.domain.Floor;
+import com.hms.pro.domain.Payment;
 import com.hms.pro.domain.Room;
 import com.hms.pro.domain.RoomType;
 import com.hms.pro.service.HMSService;
@@ -78,7 +79,7 @@ public class HMSServiceImpl implements HMSService{
 
 	@Transactional(readOnly=false)
 	public void saveCandidate(Candidate candidate) {
-		candiateDao.save(candidate);	
+		candiateDao.saveOrupdate(candidate);	
 	}
 
 	@Transactional(readOnly=true)
@@ -100,8 +101,8 @@ public class HMSServiceImpl implements HMSService{
 	}
 
 	public List<CandidateUI> getCandidates(QueryResultBySateEnum bySateEnum,
-			int candidateId) {
-		return candiateDao.getCandidates(bySateEnum, candidateId);
+			int buildingId,boolean onlyVacates) {
+		return candiateDao.getCandidates(bySateEnum, buildingId,onlyVacates);
 	}
 
 	@Transactional(readOnly=true)
@@ -148,6 +149,11 @@ public class HMSServiceImpl implements HMSService{
 	public List<Candidate> getPaymentsOfCandidates(
 			QueryResultBySateEnum active, int buildingId) {
 		return candiateDao.getPaymentsOfCandidates(active,buildingId);
+	}
+
+	public List<Payment> getPaymentHistory(int candidateId) {
+		
+		return candiateDao.getPaymentHistory(candidateId);
 	}
 
 }

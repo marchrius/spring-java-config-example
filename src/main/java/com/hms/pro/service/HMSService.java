@@ -9,6 +9,7 @@ import com.hms.pro.constants.QueryResultBySateEnum;
 import com.hms.pro.domain.Building;
 import com.hms.pro.domain.Candidate;
 import com.hms.pro.domain.Floor;
+import com.hms.pro.domain.Payment;
 import com.hms.pro.domain.Room;
 import com.hms.pro.domain.RoomType;
 import com.hms.pro.ui.CandidateUI;
@@ -39,7 +40,7 @@ public interface HMSService {
 	
 	Candidate getCandidateDetails (QueryResultBySateEnum bySateEnum, int candidateId);
 	int updateVacateData (QueryResultBySateEnum bySateEnum, int candidateId, Date vacateDate);
-	List<CandidateUI> getCandidates(QueryResultBySateEnum bySateEnum, int buildingId);
+	List<CandidateUI> getCandidates(QueryResultBySateEnum bySateEnum, int buildingId,boolean onlyVacates);
 
 	List<RoomTypeUI> getRoomTypesOfBuilding(Integer buildingId);	
 	
@@ -57,4 +58,6 @@ public interface HMSService {
 			Date date, boolean b, int buildingId);
 
 	List<Candidate> getPaymentsOfCandidates(QueryResultBySateEnum active, int i);
+	
+	List<Payment> getPaymentHistory(int candidateId);
 }

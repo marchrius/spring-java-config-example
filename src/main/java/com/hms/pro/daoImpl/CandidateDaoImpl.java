@@ -10,6 +10,7 @@ import org.springframework.util.CollectionUtils;
 import com.hms.pro.constants.QueryResultBySateEnum;
 import com.hms.pro.dao.CandidateDao;
 import com.hms.pro.domain.Candidate;
+import com.hms.pro.domain.Payment;
 import com.hms.pro.ui.CandidateUI;
 
 @Repository
@@ -19,12 +20,20 @@ public class CandidateDaoImpl extends AbstractDaoImpl<Candidate, Integer> implem
 		super(Candidate.class);
 	}
 
-	public List<CandidateUI> getCandidates(QueryResultBySateEnum bySateEnum, int buildingId) {
-		Query query=getCurrentSession().createSQLQuery("SELECT c.candidate_id as candidateId, c.name as fullName, "
-				+ "c.mobile_no as mobileNo, c.emergency_contact_no as emergencyContactNo, c.room as room, rt.room_category as "
+	public List<CandidateUI> getCandidates(QueryResultBySateEnum bySateEnum, int buildingId,boolean onlyVacates) {
+		String sql="SELECT c.candidate_id as candidateId, c.name as fullName, "
+				+ "c.mobile_no as mobileNo, c.emergency_contact_no as emergencyContactNo, r.room_name as roomName, rt.room_category as "
 				+ "roomCategory, c.candidate_fee as candidateFee, c.join_date as joinDate, c.vacation_flag as vacationFlag, "
 				+ "c.vacation_date as vacationDate from candidate c join room r on "
-				+ "r.room_id = c. room and r.building=:buildingId join room_type rt on rt.room_type_id = r.room_type where c.isActive=:active ");
+				+ "r.room_id = c. room and r.building=:buildingId join room_type rt on rt.room_type_id = r.room_type where c.isActive=:active";
+		if(onlyVacates){
+			sql="SELECT c.candidate_id as candidateId, c.name as fullName, "
+				+ "c.mobile_no as mobileNo, c.emergency_contact_no as emergencyContactNo, r.room_name as roomName, rt.room_category as "
+				+ "roomCategory, c.candidate_fee as candidateFee, c.join_date as joinDate, c.vacation_flag as vacationFlag, "
+				+ "c.vacation_date as vacationDate from candidate c join room r on "
+				+ "r.room_id = c. room and r.building=:buildingId join room_type rt on rt.room_type_id = r.room_type where c.isActive=:active and c.vacation_flag =0";
+		}
+		Query query=getCurrentSession().createSQLQuery(sql);
 		query.setParameter("active", bySateEnum.ordinal());
 		query.setParameter("buildingId", buildingId);
 		return (List<CandidateUI>) excuteQuery(query, CandidateUI.class);
@@ -123,6 +132,14 @@ public class CandidateDaoImpl extends AbstractDaoImpl<Candidate, Integer> implem
 		query.setParameter("state", state.ordinal());
 		return query.list();
 
+	}
+
+	public List<Payment> getPaymentHistory(int candidateId) {
+	
+		String hql="from Payment p where p.candidate.candidateId=:cid";
+		Query query=getCurrentSession().createQuery(hql);
+		query.setParameter("cid", candidateId);
+		return query.list();
 	}
 
 }

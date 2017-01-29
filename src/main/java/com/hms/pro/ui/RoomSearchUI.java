@@ -16,7 +16,7 @@ public class RoomSearchUI {
 	
 	private BigInteger occupaid;
 	
-	private Integer isVacate;
+	private BigInteger isVacate;
 	
 	private String cost;
 
@@ -69,11 +69,11 @@ public class RoomSearchUI {
 		this.occupaid = occupaid;
 	}
 
-	public Integer getIsVacate() {
+	public BigInteger getIsVacate() {
 		return isVacate;
 	}
 
-	public void setIsVacate(Integer isVacate) {
+	public void setIsVacate(BigInteger isVacate) {
 		this.isVacate = isVacate;
 	}
 

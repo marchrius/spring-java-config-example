@@ -78,7 +78,8 @@ $(function(){
 			  url: context+"/auth/SubmitDue",
 			  data:"feeAmount="+feeAmount+"&paidAmount="+paid+"&dueDate="+dueDate+"&paymentStatus=Pending&cid="+candidateId,
 			  success:function(resp){
-				  
+				  alert("Payment done");
+				  window.location.reload();
 			  },error:function(ex){
 				  
 			  }
@@ -89,7 +90,8 @@ $(function(){
 				  url: context+"/auth/SubmitDue",
 				  data:"feeAmount="+feeAmount+"&paidAmount="+feeAmount+"&dueDate=''&paymentStatus=DONE&cid="+candidateId,
 				  success:function(resp){
-					  
+					  alert("Payment done");
+					  window.location.reload();
 				  },error:function(ex){
 					  
 				  }

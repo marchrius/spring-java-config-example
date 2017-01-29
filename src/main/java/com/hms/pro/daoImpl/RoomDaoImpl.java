@@ -26,7 +26,9 @@ public class RoomDaoImpl extends AbstractDaoImpl<Room, Integer> implements RoomD
 			 query=getCurrentSession().createSQLQuery("SELECT r.room_id as roomId,rt.room_category as roomCategory, f.floor_name as floorName, " +
 					"										r.room_name as roomName,  rt.cost as cost," +
 															" rt.capacity as capacity, COUNT(c.room) as occupaid,"+
-															"c.vacation_flag as isVacate FROM room r JOIN floor f ON f.floor_id = r.floor and r.isActive=:isActive"+
+															"case WHEN COUNT(c.room) !=0 then case when COUNT(c.room) > sum(c.vacation_flag) then 0 else 1 end else" +
+															" 1 end  as isVacate"+
+															" FROM room r JOIN floor f ON f.floor_id = r.floor and r.isActive=:isActive"+
 															" JOIN room_type rt ON rt.room_type_id = r.room_type LEFT OUTER JOIN candidate c ON " +
 															"r.room_id = c.room and c.isActive=1 where r.room_type=:roomType GROUP BY r.room_id ");
 			 query.setParameter("roomType", roomType);
@@ -34,7 +36,8 @@ public class RoomDaoImpl extends AbstractDaoImpl<Room, Integer> implements RoomD
 			query=getCurrentSession().createSQLQuery("SELECT r.room_id as roomId,rt.room_category as roomCategory, f.floor_name as floorName, " +
 					"										r.room_name as roomName,  rt.cost as cost," +
 															" rt.capacity as capacity, COUNT(c.room) as occupaid,"+
-															"c.vacation_flag as isVacate FROM room r JOIN floor f ON f.floor_id = r.floor and r.isActive=:isActive"+
+															"case WHEN COUNT(c.room) !=0 then case when COUNT(c.room) > sum(c.vacation_flag) then 0 else 1 end else 1 end  as isVacate " +
+															"FROM room r JOIN floor f ON f.floor_id = r.floor and r.isActive=:isActive"+
 															" JOIN room_type rt ON rt.room_type_id = r.room_type LEFT OUTER JOIN candidate c ON " +
 															"r.room_id = c.room and c.isActive=1 GROUP BY r.room_id ");
 			
