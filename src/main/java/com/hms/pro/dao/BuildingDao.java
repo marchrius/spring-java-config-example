@@ -10,4 +10,6 @@ public interface BuildingDao extends AbstractDao<Building, Integer> {
 
 	List<Building> getBuildingsList(QueryResultBySateEnum bySateEnum);
 
+	Building getBuilding(QueryResultBySateEnum bySateEnum, int buildingId);
+
  }

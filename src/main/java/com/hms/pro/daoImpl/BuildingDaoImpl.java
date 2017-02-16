@@ -23,5 +23,9 @@ public class BuildingDaoImpl extends AbstractDaoImpl<Building, Integer> implemen
 		return find(query);
 	}
 
+	public Building getBuilding(QueryResultBySateEnum bySateEnum, int buildingId) {
+		return getCurrentSession().get(Building.class, buildingId);
+	}
+
 	
 }

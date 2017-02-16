@@ -41,6 +41,31 @@
                 </a>
                       
         </li>
+        
+        <li class="dropdown tasks-menu" id="admin-tab">
+        <a  href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                 
+                  <span class="user user-menu "><B>Administration</B></span>
+                   
+                </a>
+          <ul class="dropdown-menu">
+          	<li>
+          		<ul class="menu">
+          			<li>
+          				<a href="<%=request.getContextPath() %>/auth/showRoomTypePage">Room Types</a>
+          			</li>
+          			<li>
+          				<a href="<%=request.getContextPath() %>/auth/">Floors</a>
+          			</li>
+          			<li>
+          				<a href="<%=request.getContextPath() %>/auth/">Rooms</a>
+          			</li>
+          			
+          		</ul>
+          	</li>
+          </ul>            
+        </li>
+        
         </ul>
         </div>
         

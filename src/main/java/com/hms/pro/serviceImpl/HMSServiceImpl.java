@@ -156,4 +156,9 @@ public class HMSServiceImpl implements HMSService{
 		return candiateDao.getPaymentHistory(candidateId);
 	}
 
+	public Building getBuilding(QueryResultBySateEnum bySateEnum, int buildingId) {
+		
+		return buildingDao.getBuilding(bySateEnum, buildingId );
+	}
+
 }

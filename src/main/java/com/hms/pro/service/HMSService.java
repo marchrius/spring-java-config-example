@@ -25,6 +25,8 @@ public interface HMSService {
 	List<Building> getBuildings(QueryResultBySateEnum bySateEnum);
 	
 	List<Floor> getFloors(QueryResultBySateEnum bySateEnum);
+	
+	Building getBuilding(QueryResultBySateEnum bySateEnum, int buildingId);
 
 	List<RoomsUI> getFloors(QueryResultBySateEnum active, int roomType,
 			int buildingId);

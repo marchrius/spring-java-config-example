@@ -126,9 +126,6 @@ public class CandidateDaoImpl extends AbstractDaoImpl<Candidate, Integer> implem
 			query=getCurrentSession().createQuery("from Candidate c where c.isActive=:state and c.paymentStatus='Pending' ORDER BY c.pendingDueDate ASC");
 		}
 			// today and follwed by dates
-			
-		
-		
 		query.setParameter("state", state.ordinal());
 		return query.list();
 
